@@ -24,11 +24,11 @@ public class Localizacao {
 
     private String cidade;
 
-    private String setor;
-
     private String cep;
 
     private String complemento;
+
+    private String setor;
 
     public Localizacao(LocalizacaoRequest localizacaoRequest){
         this.logradouro = localizacaoRequest.logradouro();

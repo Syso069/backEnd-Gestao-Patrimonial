@@ -18,7 +18,7 @@ public class InventarioService {
 
     public void salvar(Patrimonio patrimonio, Long idLocalizacao){
         Inventario inventario = new Inventario();
-        Localizacao localizacaoPersist = localizacaoService.buscarPorId(idLocalizacao);
+        Localizacao localizacaoPersist = localizacaoService.listarPorId(idLocalizacao);
         inventario.setPatrimonio(patrimonio);
         inventario.setLocalizacao(localizacaoPersist);
         inventarioRepository.save(inventario);

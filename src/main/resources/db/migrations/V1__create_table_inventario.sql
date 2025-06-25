@@ -11,7 +11,7 @@ CREATE TABLE patrimonio(
 );
 
 CREATE TABLE localizacao (
-    id SERIAL PRIMARY KEY,
+    id NUMERIC AUTO_INCREMENT PRIMARY KEY,
     logradouro TEXT NOT NULL,
     numero NUMERIC,
     uf TEXT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE localizacao (
 );
 
 CREATE TABLE inventario(
-    id SERIAL PRIMARY KEY NOT NULL,
+    id NUMERIC AUTO_INCREMENT PRIMARY KEY,
     fk_patrimonio INT,
     fk_localizacao INT,
     FOREIGN KEY (fk_patrimonio) REFERENCES patrimonio(id),

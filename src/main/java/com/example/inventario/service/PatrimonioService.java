@@ -1,10 +1,7 @@
 package com.example.inventario.service;
 
-import com.example.inventario.model.Inventario;
-import com.example.inventario.model.Localizacao;
 import com.example.inventario.model.Patrimonio;
 import com.example.inventario.model.PatrimonioRequest;
-import com.example.inventario.repository.InventarioRepository;
 import com.example.inventario.repository.PatrimonioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -25,7 +22,7 @@ public class PatrimonioService {
     @Autowired
     LocalizacaoService localizacaoService;
 
-    public List<Patrimonio> pegaPatrimonio(){
+    public List<Patrimonio> listarTodos(){
         List<Patrimonio> inventarios = repository.findAll(Sort.by("codigoPatrimonio").ascending());
         if (inventarios.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum patrimônio encontrado");
@@ -34,13 +31,13 @@ public class PatrimonioService {
         }
     }
 
-    public Patrimonio salvaNovoPatrimonio(Patrimonio novoPatrimonio, Long idLocalizacao){
+    public Patrimonio criar(Patrimonio novoPatrimonio, Long idLocalizacao){
         Patrimonio patrimonio = repository.save(novoPatrimonio);
         inventarioService.salvar(patrimonio, idLocalizacao);
         return patrimonio;
     }
 
-    public Patrimonio editaPatrimonio(Long id, PatrimonioRequest data){
+    public Patrimonio atualizar(Long id, PatrimonioRequest data){
         Patrimonio inventarios = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patrimônio não encontrado"));
 
@@ -51,7 +48,7 @@ public class PatrimonioService {
         return repository.save(inventarios);
     }
 
-    public Patrimonio deletaPatrimonio(Long id){
+    public Patrimonio deletar(Long id){
         Patrimonio inventario = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patrimônio não encontrado"));;
 

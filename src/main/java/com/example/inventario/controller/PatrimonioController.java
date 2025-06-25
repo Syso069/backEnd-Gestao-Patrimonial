@@ -12,34 +12,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/patrimonio")
+@RequestMapping("/patrimonios")
 public class PatrimonioController {
 
     @Autowired
     private PatrimonioService patrimonioService;
 
     @GetMapping
-    public ResponseEntity<List<Patrimonio>> pegaTodosPatrimonios(){
-        return ResponseEntity.ok(patrimonioService.pegaPatrimonio());
+    public ResponseEntity<List<Patrimonio>> listarPartimonios(){
+        return ResponseEntity.ok(patrimonioService.listarTodos());
     }
 
     @PostMapping
-    public ResponseEntity<Patrimonio> registraPatrimonio(@RequestBody @Valid PatrimonioRequest data){
+    public ResponseEntity<Patrimonio> criarPatrimonio(@RequestBody @Valid PatrimonioRequest data){
         Patrimonio patrimonio = new Patrimonio(data);
-        patrimonioService.salvaNovoPatrimonio(patrimonio, data.idLocalizacao());
+        patrimonioService.criar(patrimonio, data.idLocalizacao());
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Patrimonio> editaPatrimonio(@PathVariable Long id, @RequestBody @Valid PatrimonioRequest data){
-        var atualizaPatrimonio = patrimonioService.editaPatrimonio(id, data);
+    public ResponseEntity<Patrimonio> atualizarPatrimonio(@PathVariable Long id, @RequestBody @Valid PatrimonioRequest data){
+        var atualizaPatrimonio = patrimonioService.atualizar(id, data);
         return ResponseEntity.ok(atualizaPatrimonio);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Patrimonio> excluiPatrimonio(@PathVariable Long id){
-        var deletaPatrimonio = patrimonioService.deletaPatrimonio(id);
+    public ResponseEntity<Patrimonio> deletarUsuario(@PathVariable Long id){
+        var deletaPatrimonio = patrimonioService.deletar(id);
         return ResponseEntity.ok(deletaPatrimonio);
     }
 }

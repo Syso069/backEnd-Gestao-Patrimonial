@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/localizacoes")
 public class LocalizacaoController {
@@ -17,27 +19,26 @@ public class LocalizacaoController {
     private LocalizacaoService localizacaoService;
 
     @GetMapping
-    public ResponseEntity listarLocalizacoes(){
+    public ResponseEntity<List<Localizacao>> listarLocalizacoes(){
         return ResponseEntity.ok(localizacaoService.listarTodos());
     }
 
     @PostMapping
-    public ResponseEntity criarLocalizacao(@RequestBody @Valid LocalizacaoRequest data){
-        Localizacao localizacao = new Localizacao(data);
-        localizacaoService.criar(localizacao);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Localizacao> criarLocalizacao(@RequestBody @Valid LocalizacaoRequest data){
+        var localizacao = localizacaoService.criar(data);
+        return ResponseEntity.ok(localizacao);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity atualizaLocalizacao(@PathVariable Long id, @RequestBody @Valid LocalizacaoRequest data){
+    public ResponseEntity<Localizacao> atualizaLocalizacao(@PathVariable Long id, @RequestBody @Valid LocalizacaoRequest data){
         var atualiza = localizacaoService.atualizar(id, data);
         return ResponseEntity.ok(atualiza);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deletaLocalizacao(@PathVariable Long id){
-        var deletar = localizacaoService.deletar(id);
-        return ResponseEntity.ok(deletar);
+    public ResponseEntity<Localizacao> deletaLocalizacao(@PathVariable Long id){
+        localizacaoService.deletar(id);
+        return ResponseEntity.ok().build();
     }
 }

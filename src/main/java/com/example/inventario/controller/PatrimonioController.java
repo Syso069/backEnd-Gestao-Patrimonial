@@ -25,21 +25,20 @@ public class PatrimonioController {
 
     @PostMapping
     public ResponseEntity<Patrimonio> criarPatrimonio(@RequestBody @Valid PatrimonioRequest data){
-        Patrimonio patrimonio = new Patrimonio(data);
-        patrimonioService.criar(patrimonio, data.idLocalizacao());
-        return ResponseEntity.ok().build();
+        var patrimonioCriado  = patrimonioService.criar(data);
+        return ResponseEntity.ok(patrimonioCriado);
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<Patrimonio> atualizarPatrimonio(@PathVariable Long id, @RequestBody @Valid PatrimonioRequest data){
-        var atualizaPatrimonio = patrimonioService.atualizar(id, data);
-        return ResponseEntity.ok(atualizaPatrimonio);
+        var patrimonio = patrimonioService.atualizar(id, data);
+        return ResponseEntity.ok(patrimonio);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Patrimonio> deletarUsuario(@PathVariable Long id){
-        var deletaPatrimonio = patrimonioService.deletar(id);
-        return ResponseEntity.ok(deletaPatrimonio);
+        patrimonioService.deletar(id);
+        return ResponseEntity.ok().build();
     }
 }

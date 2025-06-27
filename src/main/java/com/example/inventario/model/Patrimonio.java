@@ -20,6 +20,8 @@ public class Patrimonio {
 
     private String codigoPatrimonio;
 
+    private String nome;
+
     private String tipo;
 
     private Long idLocalizacao;

@@ -13,6 +13,9 @@ public record PatrimonioRequest(
     String codigoPatrimonio,
 
     @NotBlank
+    String nome,
+
+    @NotBlank
     String tipo,
 
     @NotBlank

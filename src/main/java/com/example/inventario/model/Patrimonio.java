@@ -16,33 +16,44 @@ import java.time.LocalDate;
 public class Patrimonio {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patrimonio_id_seq")
     @SequenceGenerator(name = "patrimonio_id_seq", sequenceName = "patrimonio_id_seq", allocationSize = 1)
+    @Column(name = "ID")
     private Long id;
 
-    private String codigoPatrimonio;
+    @Column(name = "CODIGO")
+    private String codigo;
 
+    @Column(name = "NOME")
     private String nome;
 
+    @Column(name = "TIPO")
     private String tipo;
 
-    private Long idLocalizacao;
+    @ManyToOne
+    @JoinColumn(name = "FK_LOCALIZACAO")
+    private Localizacao localizacao;
 
+    @Column(name = "ESTADO")
     private String estado;
 
+    @Column(name = "RESPOSAVEL_ATUAL")
     private String responsavelAtual;
 
+    @Column(name = "VALOR")
     private float valor;
 
+    @Column(name = "NUMERO_SERIE")
     private String numeroSerie;
 
+    @Column(name = "FABRICANTE")
     private String fabricante;
 
+    @Column(name = "DATA_AQUISICAO")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataAquisicao;
 
     public Patrimonio(PatrimonioRequest patrimonioRequest){
-        this.codigoPatrimonio = patrimonioRequest.codigoPatrimonio();
+        this.codigo = patrimonioRequest.codigoPatrimonio();
         this.tipo = patrimonioRequest.tipo();
-        this.idLocalizacao = patrimonioRequest.idLocalizacao();
         this.estado = patrimonioRequest.estado();
         this.responsavelAtual = patrimonioRequest.responsavelAtual();
         this.valor = patrimonioRequest.valor();

@@ -24,15 +24,17 @@ public class PatrimonioService {
 
     public Patrimonio criar(PatrimonioRequest data){
         Patrimonio patrimonio = new Patrimonio(data);
-        Patrimonio patrimonioCriado = repository.save(patrimonio);
-        return patrimonioCriado;
+        var localizacao = localizacaoService.buscarPorId(data.idLocalizacao());
+        patrimonio.setLocalizacao(localizacao);
+        return repository.save(patrimonio);
     }
 
     public Patrimonio atualizar(Long id, PatrimonioRequest data){
         Patrimonio patrimonio = repository.findById(id).orElse(null);
 
         if (Objects.nonNull(patrimonio)){
-            patrimonio.setCodigoPatrimonio(data.codigoPatrimonio());
+            patrimonio.setCodigo(data.codigoPatrimonio());
+            patrimonio.setNome(data.nome());
             patrimonio.setTipo(data.tipo());
             patrimonio.setResponsavelAtual(data.responsavelAtual());
             patrimonio.setDataAquisicao(data.dataAquisicao());

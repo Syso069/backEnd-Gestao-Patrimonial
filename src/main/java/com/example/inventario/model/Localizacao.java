@@ -14,20 +14,28 @@ public class Localizacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "logradouro")
     private String logradouro;
 
+    @Column(name = "numero")
     private int numero;
 
+    @Column(name = "uf")
     private String uf;
 
+    @Column(name = "cidade")
     private String cidade;
 
+    @Column(name = "cep")
     private String cep;
 
+    @Column(name = "complemento")
     private String complemento;
 
+    @Column(name = "setor")
     private String setor;
 
     public Localizacao(LocalizacaoRequest localizacaoRequest){
